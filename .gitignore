@@ -1,0 +1,5 @@
+# Project exclude paths
+/SPZX-Common/Common-Service/target/
+/SPZX-Common/Common-Util/target/
+/SPZX-Manager/target/
+/SPZX-Model/target/

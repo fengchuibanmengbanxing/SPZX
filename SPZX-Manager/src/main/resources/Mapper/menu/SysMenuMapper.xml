@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.SysMenuMapper">
+
+    <resultMap id="sysMenuMap" type="com.atguigu.spzx.model.entity.system.SysMenu" autoMapping="true"></resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id
+        ,parent_id,title,component,sort_value,status,create_time,update_time,is_deleted
+    </sql>
+
+
+    <insert id="save">
+        insert into sys_menu (id,
+                              parent_id,
+                              title,
+                              component,
+                              sort_value,
+                              status)
+        values (#{id},
+                #{parentId},
+                #{title},
+                #{component},
+                #{sortValue},
+                #{status})
+    </insert>
+
+
+    <!--查询所有菜单-->
+    <select id="findall" resultType="com.atguigu.spzx.model.entity.system.SysMenu">
+        Select
+        <include refid="columns"/>
+        from sys_menu
+        where is_deleted=0
+        order by sort_value
+    </select>
+
+    <!--    //根据id删除菜单-->
+    <update id="deleteById">
+        update sys_menu
+        set update_time = now(),
+            is_deleted  = 1
+        where id = #{id}
+    </update>
+
+    <!--//查询菜单是否存在子菜单-->
+    <select id="selectByid" resultType="java.lang.Integer">
+        select count(id)
+        from sys_menu
+        where parent_id = #{parentId}
+          and is_deleted = 0
+    </select>
+
+
+<!-- 动态查询用户菜单-->
+    <select id="selectListByUserId" resultMap="sysMenuMap">
+        SELECT DISTINCT m.*
+        FROM sys_menu m
+                 INNER JOIN sys_role_menu srm ON m.id=srm.menu_id
+                 INNER JOIN sys_user_role sur ON srm.role_id=sur.role_id
+        WHERE sur.user_id=#{userId} and m.is_deleted=0
+    </select>
+    <select id="selectById" resultType="com.atguigu.spzx.model.entity.system.SysMenu">
+        select *from sys_menu
+         where id=#{parentId}
+    </select>
+
+
+</mapper>

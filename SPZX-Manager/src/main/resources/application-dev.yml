@@ -1,0 +1,32 @@
+server:
+  port: 8501
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.188.123:3307/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 826929
+  data:
+    redis:
+      password: 826929
+      host: 192.168.188.123
+      port: 6379
+
+mybatis:
+#  引入配置文件
+  config-location: classpath:/mybatis-config.xml
+#  设置资源路径
+  mapper-locations: classpath:/Mapper/*/*.xml
+
+spzx:
+  auth:
+    noAuthUrls:
+      - /admin/system/index/login
+      - /admin/system/index/generateValidateCode
+   # 自定义配置
+  minio:
+    endpointUrl: http://127.0.0.1:9000
+    accessKey: minioadmin
+    secreKey: minioadmin
+    bucketName: spzx-bucket

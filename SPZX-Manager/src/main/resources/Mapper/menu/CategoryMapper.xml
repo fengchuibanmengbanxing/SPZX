@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.CategoryMapper">
+    <resultMap id="categoryMap" type="com.atguigu.spzx.model.entity.product.Category" autoMapping="true">
+    </resultMap>
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,name,image_url,parent_id,status,order_num,create_time,update_time,is_deleted
+    </sql>
+    <update id="batchInsert" keyProperty="id">
+        insert into category (
+        id,
+        name,
+        image_url,
+        parent_id,
+        status,
+        order_num,
+        create_time ,
+        update_time ,
+        is_deleted
+        ) values
+        <foreach collection="categoryList" item="item" separator="," >
+            (
+            #{item.id},
+            #{item.name},
+            #{item.imageUrl},
+            #{item.parentId},
+            #{item.status},
+            #{item.orderNum},
+            now(),
+            now(),
+            0
+            )
+        </foreach>
+
+    </update>
+
+    <select id="CategoryById" resultType="com.atguigu.spzx.model.entity.product.Category">
+        select <include refid="columns" />
+        from category
+        where parent_id = #{parentId}
+        and is_deleted = 0
+        order by id desc
+    </select>
+
+    <select id="CountcategoryById" resultType="java.lang.Integer">
+        select count(id)
+        from category
+        where parent_id = #{parentId}
+          and is_deleted = 0
+    </select>
+<!--    //获取数据库category集合信息-->
+    <select id="findallcategory" resultType="com.atguigu.spzx.model.entity.product.Category">
+        SELECT <include refid="columns" />
+        FROM category
+        WHERE is_deleted=0
+        ORDER BY id ASC
+    </select>
+
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->

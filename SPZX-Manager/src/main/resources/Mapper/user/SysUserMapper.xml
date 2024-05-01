@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.SysUserMapper">
+
+    <insert id="save">
+        insert into sys_user (
+            id,
+            username,
+            password,
+            name,
+            phone,
+            avatar,
+            description,
+            status
+        ) values (
+                     #{id},
+                     #{userName},
+                     #{password},
+                     #{name},
+                     #{phone},
+                     #{avatar},
+                     #{description},
+                     #{status}
+                 )
+    </insert>
+
+    <update id="update">
+        update sys_user set
+        <if test="userName != null and userName != ''">
+            username = #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        update_time = now()
+        where
+        id = #{id}
+    </update>
+
+    <update id="delete">
+    update  sys_user  set is_deleted=1
+    where id=#{userId}
+    </update>
+    <!--selectByUserName-->
+    <select id="selectByUserName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        SELECT *
+        FROM sys_user
+        WHERE username = #{userName};
+    </select>
+
+    <select id="findPage" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        SELECT * FROM sys_user
+        <where>
+            <if test=" keyword!=null and keyword !=''">
+                and username like CONCAT ('%',#{keyword},'%')
+            </if>
+            <if test=" createTimeBegin!=null and createTimeBegin !=''">
+                and create_time >= #{createTimeBegin}
+            </if>
+            <if test=" createTimeEnd!=null and createTimeEnd !=''">
+                and create_time &lt;=#{createTimeEnd}
+            </if>
+            and is_deleted=0
+
+        </where>
+            order by id desc
+    </select>
+
+    <select id="findbyname" resultType="com.atguigu.spzx.model.entity.system.SysUser">
+        select *
+        from sys_user
+        where username = #{userName}
+          and is_deleted = 0;
+    </select>
+
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->
