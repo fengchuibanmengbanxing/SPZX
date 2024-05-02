@@ -5,10 +5,12 @@
 <!--接口全类名-->
 <mapper namespace="SPZX.Mapper.ProductUnitMapper">
 
+    <sql id="columns">
+        id,name,create_time,update_time,is_deleted
+    </sql>
 
-    <!--    ////分页查询-->
-    <select id="findPage" resultType="com.atguigu.spzx.model.entity.product.Product">
-        select *
+    <select id="findAll" resultType="com.atguigu.spzx.model.entity.base.ProductUnit">
+        select <include refid="columns" />
         from product_unit
         where is_deleted = 0
         order by id
