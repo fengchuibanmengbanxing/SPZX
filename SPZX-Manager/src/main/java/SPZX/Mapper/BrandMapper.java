@@ -19,4 +19,6 @@ public interface BrandMapper {
     void updateById(Brand brand);
     //删除品牌 逻辑删除
     void DelectByID(int id);
+    //查询所有品牌
+    List<Brand> findAll();
 }

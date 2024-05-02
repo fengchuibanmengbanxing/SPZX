@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.ProductUnitMapper">
+
+
+    <!--    ////分页查询-->
+    <select id="findPage" resultType="com.atguigu.spzx.model.entity.product.Product">
+        select *
+        from product_unit
+        where is_deleted = 0
+        order by id
+    </select>
+
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->

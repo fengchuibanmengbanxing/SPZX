@@ -5,8 +5,11 @@ import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author 清醒
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @RestController
+@Slf4j
 @RequestMapping(value = "/admin/product/brand")
 public class BrandController {
 
@@ -35,7 +39,7 @@ public class BrandController {
     }
 
     //修改品牌
-    @PutMapping("updateById")
+    @PutMapping("/updateById")
     public Result updateById(@RequestBody Brand brand) {
         brandService.updateById(brand);
         return Result.build(null,ResultCodeEnum.SUCCESS);
@@ -47,5 +51,13 @@ public class BrandController {
         brandService.DelectByID(id);
         return Result.build(null,ResultCodeEnum.SUCCESS);
     }
+
+
+    @GetMapping("findAll")
+    public Result findAll() {
+       List<Brand> Brandlist= brandService.findAll();
+        return Result.build(Brandlist, ResultCodeEnum.SUCCESS);
+    }
+
 
 }

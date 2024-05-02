@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.CategoryBrandMapper">
+    <sql id="columns">
+     id,brand_id,categoty_id,create_time,update_time,is_deleted
+    </sql>
+
+<!--    添加-->
+    <insert id="save">
+        insert into category_brand (
+            id,
+            brand_id,
+            category_id,
+            create_time,
+            update_time ,
+            is_deleted
+        ) values (
+                     #{id},
+                     #{brandId},
+                     #{categoryId},
+                     now(),
+                     now(),
+                     0
+                 )
+    </insert>
+
+    <!--    //查找品牌-->
+    <select id="findPage" resultType="com.atguigu.spzx.model.entity.product.CategoryBrand">
+        SELECT cb.* ,c.name AS category , b.name AS brandname, b.logo
+         FROM  category_brand  AS cb
+          INNER JOIN brand AS b ON b.id=cb.brand_id
+           INNER JOIN category AS c ON cb.category_id=c.id
+        <where>
+            <if test="BrandId!=null and brandId!=''">
+            and cb.brand_id=#{brandId}
+            </if>
+            <if test="categoryId!=null and categoryId!=''">
+                and cb.category_id=#{categoryId}
+            </if>
+        </where>
+        and cb.is_deleted=0
+    </select>
+
+
+<!--    //根据类别查询品牌信息-->
+    <select id="findBrandByCategoryId" resultType="com.atguigu.spzx.model.entity.product.Brand">
+        SELECT *FROM category_brand
+         INNER JOIN brand AS b ON b.id=cb.brand_id
+        WHERE category_id=#{categoryId}
+
+    </select>
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->

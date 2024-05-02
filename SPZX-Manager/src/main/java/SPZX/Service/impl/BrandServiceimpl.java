@@ -44,5 +44,12 @@ public class BrandServiceimpl implements BrandService {
         brandMapper.DelectByID(id);
     }
 
+    @Override
+    public List<Brand> findAll() {
+        List<Brand> Brandall = brandMapper.findAll();
+        return  Brandall;
+
+    }
+
 
 }
