@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--接口全类名-->
-<mapper namespace="SPZX.Mapper.OrderStatisticsMapper">
+<mapper namespace="SPZXOrder.Mapper.OrderStatisticsMapper">
 
     <sql id="columns">
         id,order_date,total_amount,total_num,create_time,update_time,is_deleted

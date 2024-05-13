@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--接口全类名-->
-<mapper namespace="SPZX.Mapper.ProductUnitMapper">
+<mapper namespace="SPZXOrder.Mapper.ProductUnitMapper">
 
     <sql id="columns">
         id,name,create_time,update_time,is_deleted
