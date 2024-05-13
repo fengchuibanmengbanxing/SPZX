@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--接口全类名-->
-<mapper namespace="SPZX.Mapper.BrandMapper">
+<mapper namespace="SPZXOrder.Mapper.BrandMapper">
 
 
     <resultMap id="brandMap" type="com.atguigu.spzx.model.entity.product.Brand" autoMapping="true">

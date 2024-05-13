@@ -19,6 +19,7 @@
     <modules>
         <module>Common-Util</module>
         <module>Common-Service</module>
+        <module>common-log</module>
     </modules>
 
     <distributionManagement>

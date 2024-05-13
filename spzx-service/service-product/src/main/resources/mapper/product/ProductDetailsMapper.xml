@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="spzxproduct.Mapper.ProductDetailsMapper">
+
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id,product_id,image_urls,create_time,update_time,is_deleted
+    </sql>
+<!--    //商品详情信息-->
+    <select id="getByProductId" resultType="com.atguigu.spzx.model.entity.product.ProductDetails">
+        select <include refid="columns" />
+        from product_details
+        where
+        product_id = #{productId}
+    </select>
+
+
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->

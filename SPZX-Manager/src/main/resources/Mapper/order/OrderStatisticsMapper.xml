@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZX.Mapper.OrderStatisticsMapper">
+
+    <sql id="columns">
+        id,order_date,total_amount,total_num,create_time,update_time,is_deleted
+    </sql>
+    <insert id="insert">
+        insert into order_statistics (
+            id,
+            order_date,
+            total_amount,
+            total_num
+        ) values (
+                     #{id},
+                     #{orderDate},
+                     #{totalAmount},
+                     #{totalNum}
+                 )
+    </insert>
+
+
+<!--    //根据日期查询订单数据-->
+    <select id="selectlist" resultType="com.atguigu.spzx.model.entity.order.OrderStatistics">
+        select <include refid="columns" />
+        from order_statistics
+        <where>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                and order_date >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                and order_date &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        order by order_date
+    </select>
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->

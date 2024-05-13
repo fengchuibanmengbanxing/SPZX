@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--接口全类名-->
+<mapper namespace="SPZXUser.Mapper.UserInfoMapper">
+    <!-- 用于select查询公用抽取的列 -->
+    <sql id="columns">
+        id
+        ,username,password,nick_name,avatar,sex,phone,memo,open_id,union_id,last_login_ip,last_login_time,status,create_time,update_time,is_deleted
+    </sql>
+
+    <!--    //保存注册信息-->
+    <insert id="save">
+        insert into user_info (id,
+                               username,
+                               password,
+                               nick_name,
+                               avatar,
+                               sex,
+                               phone,
+                               memo,
+                               open_id,
+                               union_id,
+                               last_login_ip,
+                               last_login_time,
+                               status)
+        values (#{id},
+                #{username},
+                #{password},
+                #{nickName},
+                #{avatar},
+                #{sex},
+                #{phone},
+                #{memo},
+                #{openId},
+                #{unionId},
+                #{lastLoginIp},
+                #{lastLoginTime},
+                #{status})
+    </insert>
+
+
+    <!--    //根据用户名查询用户防止重复用户名-->
+    <select id="selectByUserName" resultType="com.atguigu.spzx.model.entity.user.UserInfo">
+        select
+        <include refid="columns"/>
+        from user_info
+        where
+        username = #{username}
+    </select>
+
+
+</mapper>
+
+        <!--文件名要与java包中全类名文件名一样否则程序会找不到-->
