@@ -17,10 +17,13 @@ public class GlobalExceptionHandler {
 
 
 
+
+    //拦截自定义异常
     @ExceptionHandler(GuiguException.class)
     @ResponseBody
     public Result error(GuiguException e){
         e.printStackTrace();
         return Result.build(null , e.getResultCodeEnum()) ;
     }
+
 }
